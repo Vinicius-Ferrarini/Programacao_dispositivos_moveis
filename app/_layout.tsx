@@ -24,6 +24,14 @@ export default function App() {
 
   // Função para quando o usuário escolhe uma operação matemática
   const lidarComOperacao = (operacaoEscolhida: string) => {
+    // raiz quadrada é uma operação imediata (não precisa de segundo número)
+    if (operacaoEscolhida === '√') {
+      const num = parseFloat(numeroAtual);
+      const resultado = Math.sqrt(num);
+      setNumeroAtual(String(resultado));
+      return; // não mexe na memória ou operador
+    }
+
     setOperador(operacaoEscolhida);
     setNumeroAnterior(numeroAtual); // Guarda o número atual na memória
     setNumeroAtual('0'); // Zera o visor para o próximo número
@@ -43,6 +51,7 @@ export default function App() {
       case '-': resultado = num1 - num2; break;
       case '*': resultado = num1 * num2; break;
       case '/': resultado = num1 / num2; break;
+      case '^': resultado = Math.pow(num1, num2); break; // expoente
     }
 
     setNumeroAtual(String(resultado)); // Mostra o resultado no visor (convertido para texto)
@@ -75,9 +84,11 @@ export default function App() {
 
       {/* Teclado */}
       <View style={styles.tecladoContainer}>
-        {/* Linha 1 */}
+        {/* Linha 1: limpar, raiz, expoente, divisão */}
         <View style={styles.linha}>
           <Botao titulo="C" onPress={limparTudo} corFundo="#a5a5a5" />
+          <Botao titulo="√" onPress={() => lidarComOperacao('√')} corFundo="#a5a5a5" />
+          <Botao titulo="^" onPress={() => lidarComOperacao('^')} corFundo="#a5a5a5" />
           <Botao titulo="/" onPress={() => lidarComOperacao('/')} corFundo="#ff9f0a" />
         </View>
 
@@ -115,9 +126,6 @@ export default function App() {
   );
 }
 
-// ==========================================
-// ESTILOS (O CSS do React Native)
-// ==========================================
 const styles = StyleSheet.create({
   container: {
     flex: 1,
