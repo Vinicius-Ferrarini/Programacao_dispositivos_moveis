@@ -28,6 +28,20 @@ export default function App() {
     setLimparTela(true);
   };
 
+  const lidarComVirgula = () => {
+    // Se a tela for limpa (depois de um operador), começamos com '0.'
+    if (limparTela) {
+      setNumeroAtual('0.');
+      setLimparTela(false);
+      return;
+    }
+
+    // Só adiciona a vírgula se o número atual ainda não tiver uma
+    if (!numeroAtual.includes('.')) {
+      setNumeroAtual(numeroAtual + '.');
+    }
+  };
+
   const calcularResultado = () => {
     if (!numeroAnterior || !operador) return;
 
@@ -102,6 +116,8 @@ export default function App() {
 
         <View style={styles.linha}>
           <Botao titulo="0" onPress={() => lidarComNumero('0')} />
+          <Botao titulo="00" onPress={() => lidarComNumero('00')} />
+          <Botao titulo="," onPress={lidarComVirgula} />
           <Botao titulo="=" onPress={calcularResultado} corFundo="#ff9f0a" />
         </View>
       </View>
@@ -115,10 +131,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000', 
     justifyContent: 'flex-end',
   },
-  visorContainer: {
+visorContainer: {
     padding: 20,
+    width: '100%',
     alignItems: 'flex-end',
-  },
+    justifyContent: 'flex-end',
+    minHeight: 150, 
+    marginTop: 50,
+},  
   textoVisor: {
     fontSize: 70,
     color: '#ffffff',
