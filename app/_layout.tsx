@@ -6,6 +6,10 @@ export default function App() {
   const [numeroAnterior, setNumeroAnterior] = useState(null);
   const [operador, setOperador] = useState(null);
   const [limparTela, setLimparTela] = useState(false);
+  const COR_OPERADOR = '#ff9f0a';
+  const COR_FUNCAO = '#a5a5a5';
+  const COR_NUMERO = '#333333';
+  
 
   const lidarComNumero = (numeroDigitado) => {
     if (numeroAtual === '0' || limparTela) {
@@ -29,14 +33,12 @@ export default function App() {
   };
 
   const lidarComVirgula = () => {
-    // Se a tela for limpa (depois de um operador), começamos com '0.'
     if (limparTela) {
       setNumeroAtual('0.');
       setLimparTela(false);
       return;
     }
 
-    // Só adiciona a vírgula se o número atual ainda não tiver uma
     if (!numeroAtual.includes('.')) {
       setNumeroAtual(numeroAtual + '.');
     }
@@ -79,47 +81,61 @@ export default function App() {
     </TouchableOpacity>
   );
 
+  const layoutTeclado = [
+    [
+      { titulo: 'C', onPress: limparTudo, cor: COR_FUNCAO },
+      { titulo: '√', onPress: () => lidarComOperacao('√'), cor: COR_FUNCAO },
+      { titulo: '^', onPress: () => lidarComOperacao('^'), cor: COR_FUNCAO },
+      { titulo: '/', onPress: () => lidarComOperacao('/'), cor: COR_OPERADOR },
+      
+    ],
+    [
+      { titulo: '7', onPress: () => lidarComNumero('7') },
+      { titulo: '8', onPress: () => lidarComNumero('8') },
+      { titulo: '9', onPress: () => lidarComNumero('9') },
+      { titulo: '*', onPress: () => lidarComOperacao('*'), cor: COR_OPERADOR },
+    ],
+    [
+      { titulo: '4', onPress: () => lidarComNumero('4') },
+      { titulo: '5', onPress: () => lidarComNumero('5') },
+      { titulo: '6', onPress: () => lidarComNumero('6') },
+      { titulo: '-', onPress: () => lidarComOperacao('-'), cor: COR_OPERADOR },
+    ],
+    [
+      { titulo: '1', onPress: () => lidarComNumero('1') },
+      { titulo: '2', onPress: () => lidarComNumero('2') },
+      { titulo: '3', onPress: () => lidarComNumero('3') },
+      { titulo: '+', onPress: () => lidarComOperacao('+'), cor: COR_OPERADOR },
+    ],
+    [
+      { titulo: '0', onPress: () => lidarComNumero('0') },
+      { titulo: '00', onPress: () => lidarComNumero('00') },
+      { titulo: ',', onPress: lidarComVirgula },
+      { titulo: '=', onPress: calcularResultado, cor: COR_OPERADOR },
+    ],
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.visorContainer}>
-        <Text style={styles.textoVisor}>{numeroAtual}</Text>
+        <Text style={styles.textoVisor} numberOfLines={1} adjustsFontSizeToFit>
+          {numeroAtual}
+        </Text>
       </View>
 
       <View style={styles.tecladoContainer}>
-        <View style={styles.linha}>
-          <Botao titulo="C" onPress={limparTudo} corFundo="#a5a5a5" />
-          <Botao titulo="√" onPress={() => lidarComOperacao('√')} corFundo="#a5a5a5" />
-          <Botao titulo="^" onPress={() => lidarComOperacao('^')} corFundo="#a5a5a5" />
-          <Botao titulo="/" onPress={() => lidarComOperacao('/')} corFundo="#ff9f0a" />
-        </View>
-
-        <View style={styles.linha}>
-          <Botao titulo="7" onPress={() => lidarComNumero('7')} />
-          <Botao titulo="8" onPress={() => lidarComNumero('8')} />
-          <Botao titulo="9" onPress={() => lidarComNumero('9')} />
-          <Botao titulo="*" onPress={() => lidarComOperacao('*')} corFundo="#ff9f0a" />
-        </View>
-
-        <View style={styles.linha}>
-          <Botao titulo="4" onPress={() => lidarComNumero('4')} />
-          <Botao titulo="5" onPress={() => lidarComNumero('5')} />
-          <Botao titulo="6" onPress={() => lidarComNumero('6')} />
-          <Botao titulo="-" onPress={() => lidarComOperacao('-')} corFundo="#ff9f0a" />
-        </View>
-
-        <View style={styles.linha}>
-          <Botao titulo="1" onPress={() => lidarComNumero('1')} />
-          <Botao titulo="2" onPress={() => lidarComNumero('2')} />
-          <Botao titulo="3" onPress={() => lidarComNumero('3')} />
-          <Botao titulo="+" onPress={() => lidarComOperacao('+')} corFundo="#ff9f0a" />
-        </View>
-
-        <View style={styles.linha}>
-          <Botao titulo="0" onPress={() => lidarComNumero('0')} />
-          <Botao titulo="00" onPress={() => lidarComNumero('00')} />
-          <Botao titulo="," onPress={lidarComVirgula} />
-          <Botao titulo="=" onPress={calcularResultado} corFundo="#ff9f0a" />
-        </View>
+        {layoutTeclado.map((objetoDaLinha, indexLinha) => ( //objetoDaLinha ['7', '8', '9', '*'] |indexLinha 0, 1, 2, 3, 4  
+          <View key={indexLinha} style={styles.linha}>
+            {objetoDaLinha.map((btn) => (
+              <Botao 
+                key={btn.titulo}
+                titulo={btn.titulo} 
+                onPress={btn.onPress} 
+                corFundo={btn.cor} 
+              />
+            ))}
+          </View>
+        ))}
       </View>
     </View>
   );
