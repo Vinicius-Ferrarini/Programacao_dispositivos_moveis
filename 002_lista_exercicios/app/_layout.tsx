@@ -32,7 +32,7 @@ function TelaBoasVindas({ mudarTela }) {
         <Text style={styles.subtitulo}>O melhor app para o seu dia a dia.</Text>
       </View>
 
-      <MeuBotao titulo="Começar" acao={() => mudarTela('feed')} />
+      <MeuBotao titulo="Começar" acao={() => mudarTela('home')} />
       
     </View>
   );
@@ -43,13 +43,11 @@ function TelaHome({ mudarTela }) {
     <View style={styles.telaSecundaria}>
       <Text style={styles.tituloSecundario}>Categorias</Text>
 
-      {/* ScrollView horizontal para a lista rolar para o lado */}
       <ScrollView 
         horizontal={true} 
-        showsHorizontalScrollIndicator={false} // Esconde a barrinha de rolagem (Bom UX)
+        showsHorizontalScrollIndicator={false} 
         style={styles.listaCategorias}
       >
-        {/* Chamando o nosso componente várias vezes com nomes diferentes */}
         <ItemCategoria nome="Eletrônicos" />
         <ItemCategoria nome="Roupas" />
         <ItemCategoria nome="Casa" />
@@ -57,7 +55,6 @@ function TelaHome({ mudarTela }) {
         <ItemCategoria nome="Esportes" />
       </ScrollView>
 
-      {/* Botão para voltar e não ficarmos presos nessa tela */}
       <MeuBotao titulo="Voltar" acao={() => mudarTela('boasVindas')} />
     </View>
   );
