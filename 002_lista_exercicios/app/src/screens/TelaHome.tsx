@@ -3,6 +3,24 @@ import MeuBotao from '../components/MeuBotao';
 import ItemCategoria from '../components/ItemCategoria';
 import ItemProduto from '../components/ItemProduto';
 
+const dadosCategorias = [
+  { id: '1', nome: 'Eletrônicos', imagem: require('../../../assets/images/categoria_eletronicos.jpg') },
+  { id: '2', nome: 'Roupas', imagem: require('../../../assets/images/categoria_roupas.png') },
+  { id: '3', nome: 'Casa', imagem: require('../../../assets/images/categoria_casa.jpg') },
+  { id: '4', nome: 'Carro', imagem: require('../../../assets/images/categoria_carro.jpg') },
+  { id: '5', nome: 'Livros', imagem: require('../../../assets/images/categoria_livros.jpg') },
+  { id: '6', nome: 'Esportes', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+];
+
+const dadosProdutos = [
+  { id: '1', nome: 'Tênis Esportivo', preco: 'R$ 199,90', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+  { id: '2', nome: 'Relógio Digital', preco: 'R$ 250,00', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+  { id: '3', nome: 'Mochila Preta', preco: 'R$ 120,00', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+  { id: '4', nome: 'Fone Bluetooth', preco: 'R$ 89,90', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+  { id: '5', nome: 'Câmera', preco: 'R$ 1500,00', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+  { id: '6', nome: 'Óculos', preco: 'R$ 59,90', imagem: require('../../../assets/images/categoria_esportes.jpg') },
+];
+
 export default function TelaHome({ mudarTela }) {
   return (
     <ScrollView style={styles.tela}>
@@ -15,24 +33,17 @@ export default function TelaHome({ mudarTela }) {
           pagingEnabled={true}
           contentContainerStyle={styles.listaCategorias}
         >
-        
-          <ItemCategoria nome="Eletrônicos" imagem={require('../../../assets/images/categoria_eletronicos.jpg')} />
-          <ItemCategoria nome="Roupas" imagem={require('../../../assets/images/categoria_roupas.png')} />
-          <ItemCategoria nome="Casa" imagem={require('../../../assets/images/categoria_casa.jpg')} />
-          <ItemCategoria nome="Carro" imagem={require('../../../assets/images/categoria_carro.jpg')} />
-          <ItemCategoria nome="Livros" imagem={require('../../../assets/images/categoria_livros.jpg')} />
-          <ItemCategoria nome="Esportes" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+          {dadosCategorias.map((categoria) => (
+            <ItemCategoria key={categoria.id} nome={categoria.nome} imagem={categoria.imagem} />
+          ))}
         </ScrollView>
       </View>
       <Text style={styles.tituloSecao}>Produtos em Destaque</Text>
       
-      <View style={styles.gridProdutos}>
-        <ItemProduto nome="Tênis Esportivo" preco="R$ 199,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
-        <ItemProduto nome="Relógio Digital" preco="R$ 250,00" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
-        <ItemProduto nome="Mochila Preta" preco="R$ 120,00" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
-        <ItemProduto nome="Fone Bluetooth" preco="R$ 89,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
-        <ItemProduto nome="Fone Bluetooth" preco="R$ 89,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
-        <ItemProduto nome="Fone Bluetooth" preco="R$ 89,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+      <View style={styles.gridProdutos}> 
+        {dadosProdutos.map((produto) => (
+          <ItemProduto key={produto.id} nome={produto.nome} preco={produto.preco} imagem={produto.imagem} />
+        ))}
       </View>
 
       <MeuBotao titulo="Voltar" acao={() => mudarTela('boasVindas')} />
