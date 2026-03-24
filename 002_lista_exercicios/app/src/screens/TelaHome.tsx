@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import MeuBotao from '../components/MeuBotao';
 import ItemCategoria from '../components/ItemCategoria';
+import ItemProduto from '../components/ItemProduto';
 
 export default function TelaHome({ mudarTela }) {
   return (
-    <View style={styles.tela}>
+    <ScrollView style={styles.tela}>
       <Text style={styles.tituloCategoria}>Categorias</Text>
       
       <View style={styles.areaDoCarrossel}>
@@ -23,19 +24,28 @@ export default function TelaHome({ mudarTela }) {
           <ItemCategoria nome="Esportes" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
         </ScrollView>
       </View>
+      <Text style={styles.tituloSecao}>Produtos em Destaque</Text>
+      
+      <View style={styles.gridProdutos}>
+        <ItemProduto nome="Tênis Esportivo" preco="R$ 199,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+        <ItemProduto nome="Relógio Digital" preco="R$ 250,00" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+        <ItemProduto nome="Mochila Preta" preco="R$ 120,00" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+        <ItemProduto nome="Fone Bluetooth" preco="R$ 89,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+        <ItemProduto nome="Fone Bluetooth" preco="R$ 89,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+        <ItemProduto nome="Fone Bluetooth" preco="R$ 89,90" imagem={require('../../../assets/images/categoria_esportes.jpg')} />
+      </View>
+
       <MeuBotao titulo="Voltar" acao={() => mudarTela('boasVindas')} />
 
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  
   tela: {
     flex: 1,
     backgroundColor: '#F5F5F5',
     padding: 20,
-    justifyContent: 'space-between', 
   },
   
   tituloCategoria: {
@@ -45,8 +55,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 
-  areaDoCarrossel: {
-    flex: 1, 
+  areaDoCarrossel: { 
     justifyContent: 'center', 
   },
 
@@ -56,5 +65,17 @@ const styles = StyleSheet.create({
     gap: 30,
     paddingHorizontal: 20,
   },
-  
+  gridProdutos: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',    
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  tituloSecao: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 10,
+  }
 });
