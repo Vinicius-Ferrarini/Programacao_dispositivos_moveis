@@ -5,13 +5,11 @@ import {useState} from 'react'
 export default function App() {
   const [visor,setVisor] = useState(0);
   const [operacao,setOperacao] = useState('');
-  const [numeroAnterior,setNumeroAnterior] = useState(0);
+  const [numeroAnterior,setNumeroAnterior] = useState('');
 
   function lidarNumero(numero){
     if(visor==0) setVisor(numero);
-    else{
-      setVisor(visor + String(numero) )
-    }
+    else setVisor(visor + String(numero) )
   }
 
   function lidarOperacao(operacao){
@@ -32,7 +30,7 @@ export default function App() {
 
   function zerarCalculadora(){
     setVisor(0)
-    setNumeroAnterior(0)
+    setNumeroAnterior('')
     setOperacao('')
   }
 
@@ -42,7 +40,7 @@ export default function App() {
     else if(operacao == 'X') setVisor(numeroAnterior*visor);
     else if(operacao == '/') setVisor(numeroAnterior/visor);
 
-    setNumeroAnterior(0)
+    setNumeroAnterior('')
     setOperacao('')
 
   }
